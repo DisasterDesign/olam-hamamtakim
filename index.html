@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>עולם הממתקים | תהיה ילד לרגע</title>
     <meta name="description" content="רשת עולם הממתקים - רשת חנויות נוחות וממתקים בפריסה ארצית. מעל 80 סניפים ברחבי הארץ.">
+    <meta name="keywords" content="עולם הממתקים, ממתקים, חנויות נוחות, זכיינות, רשת חנויות, סניפים, ממתקים בישראל, חנות נוחות, זיכיון">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#FF0009">
+    <link rel="canonical" href="https://olam-hamamtakim.pages.dev/">
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="he_IL">
+    <meta property="og:title" content="עולם הממתקים | תהיה ילד לרגע">
+    <meta property="og:description" content="רשת עולם הממתקים - רשת חנויות נוחות וממתקים בפריסה ארצית. מעל 80 סניפים ברחבי הארץ.">
+    <meta property="og:url" content="https://olam-hamamtakim.pages.dev/">
+    <meta property="og:image" content="https://olam-hamamtakim.pages.dev/logo-hero.png">
+    <meta property="og:site_name" content="עולם הממתקים">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="עולם הממתקים | תהיה ילד לרגע">
+    <meta name="twitter:description" content="רשת עולם הממתקים - רשת חנויות נוחות וממתקים בפריסה ארצית. מעל 80 סניפים ברחבי הארץ.">
+    <meta name="twitter:image" content="https://olam-hamamtakim.pages.dev/logo-hero.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -42,6 +63,19 @@
             --shadow-glow: 0 4px 20px rgba(255, 0, 9, 0.3);
             --radius: 20px;
             --radius-sm: 12px;
+        }
+
+        /* ===== VISUALLY HIDDEN (SEO) ===== */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         /* ===== ANIMATED BACKGROUND BLOBS ===== */
@@ -1506,11 +1540,51 @@
             .mobile-menu { display: block; }
         }
     </style>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "name": "עולם הממתקים",
+                "url": "https://olam-hamamtakim.pages.dev/",
+                "logo": "https://olam-hamamtakim.pages.dev/logo.png",
+                "description": "רשת חנויות נוחות וממתקים בפריסה ארצית. מעל 80 סניפים ברחבי הארץ.",
+                "sameAs": [
+                    "https://www.instagram.com/olam.hamamtakim/",
+                    "https://www.facebook.com/olam.hamamtakim"
+                ]
+            },
+            {
+                "@type": "LocalBusiness",
+                "@id": "https://olam-hamamtakim.pages.dev/#business",
+                "name": "עולם הממתקים",
+                "image": "https://olam-hamamtakim.pages.dev/logo-hero.png",
+                "url": "https://olam-hamamtakim.pages.dev/",
+                "telephone": "03-6721526",
+                "email": "franchise@olam-hamamtakim.co.il",
+                "description": "רשת עולם הממתקים - רשת חנויות נוחות וממתקים בפריסה ארצית. מעל 80 סניפים ברחבי הארץ. מאז שנות ה-80.",
+                "numberOfEmployees": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 80
+                },
+                "areaServed": {
+                    "@type": "Country",
+                    "name": "ישראל"
+                },
+                "priceRange": "₪"
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
 
     <div class="global-candies" id="globalCandies"></div>
 
+    <header>
     <!-- ===== TOP BAR ===== -->
     <div class="top-bar">
         <div class="nav-logo">
@@ -1576,9 +1650,12 @@
             <a href="#commercial" class="btn-secondary" onclick="toggleMobileMenu()">להצעת שטח מסחרי</a>
         </div>
     </div>
+    </header>
 
+    <main>
     <!-- ===== HERO SECTION ===== -->
     <section class="hero" id="hero">
+        <h1 class="visually-hidden">עולם הממתקים - רשת חנויות נוחות וממתקים בפריסה ארצית</h1>
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
@@ -1972,6 +2049,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- ===== FOOTER ===== -->
     <footer>
