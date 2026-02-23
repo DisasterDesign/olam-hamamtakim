@@ -1400,6 +1400,7 @@
         }
 
         /* ===== RESPONSIVE ===== */
+        /* ===== TABLET (≤1024px) ===== */
         @media (max-width: 1024px) {
             .character-wrap { width: 250px; margin: 0 -30px; }
             .hero-title { font-size: 52px; }
@@ -1410,7 +1411,9 @@
             .gallery-item:nth-child(1) { grid-column: span 2; }
         }
 
+        /* ===== MOBILE (≤768px) ===== */
         @media (max-width: 768px) {
+            /* --- Nav --- */
             .top-bar { padding: 6px 16px; }
             .top-bar-icons { gap: 8px; }
             .top-bar-icon { width: 36px; height: 36px; font-size: 15px; }
@@ -1443,32 +1446,95 @@
                 padding: 0 20px 20px;
             }
 
-            .hero { padding: 140px 20px 60px; min-height: auto; }
+            /* --- Hero --- */
+            .hero {
+                padding: 100px 20px 30px;
+                min-height: auto;
+                align-items: flex-start;
+            }
+            .hero-ellipse {
+                position: absolute;
+                width: 180%;
+                top: 30%;
+            }
+            .hero-content {
+                min-height: calc(100vh - 130px);
+                justify-content: flex-end;
+            }
+            .hero-characters {
+                order: 2;
+                gap: 0;
+                margin: auto 0 0 0;
+                align-items: flex-end;
+            }
+            .character-wrap { width: 200px; margin: 0 -20px; }
             .hero-title { font-size: 36px; }
             .hero-slogan { font-size: 22px; }
             .hero-desc { font-size: 15px; }
-            .character-wrap { width: 200px; margin: 0 -20px; }
-            .hero-characters { gap: 10px; margin: 20px 0 28px; }
             .hero-stats { flex-direction: column; gap: 12px; }
             .hero-btns { flex-direction: column; align-items: center; }
+            .quick-bar { display: none; }
+            .candy-float { display: none; }
+            .char-glow-blue, .char-glow-red { display: none; }
 
+            /* --- Sections --- */
             section { padding: 50px 20px; }
             .section-title { font-size: 28px; }
-            .quick-bar { flex-direction: column; margin-top: -30px; padding: 16px; }
-            .form-row { grid-template-columns: 1fr; }
+            .section-subtitle { font-size: 15px; }
+
+            /* --- About --- */
+            .about-grid { gap: 24px; }
+            .about-images { grid-template-columns: 1fr; }
+            .about-img:first-child { grid-row: span 1; }
+            .about-img { aspect-ratio: 16/9; }
+
+            /* --- Franchise & Commercial --- */
             .franchise-card, .commercial-card { padding: 24px; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+            .franchise-illustration, .commercial-illustration {
+                width: 180px;
+                height: 180px;
+                font-size: 60px;
+            }
+            .franchise-info h3, .commercial-info h3 { font-size: 22px; }
+
+            /* --- Gallery --- */
             .gallery-grid { grid-template-columns: 1fr 1fr; }
             .gallery-item:nth-child(1) { grid-column: span 2; }
+
+            /* --- Contact --- */
+            .contact-form-wrap { padding: 24px; }
+            .contact-info-card { padding: 20px; }
+            .form-row { grid-template-columns: 1fr; }
+
+            /* --- Footer --- */
+            footer { padding: 30px 20px 15px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
         }
 
+        /* ===== SMALL MOBILE (≤480px) ===== */
         @media (max-width: 480px) {
+            .hero { padding: 90px 16px 20px; }
+            .hero-ellipse { width: 220%; top: 25%; }
+            .hero-content { min-height: calc(100vh - 110px); }
+            .character-wrap { width: 160px; margin: 0 -15px; }
             .hero-title { font-size: 30px; }
             .hero-slogan { font-size: 20px; }
-            .character-wrap { width: 150px; margin: 0 -10px; }
+
+            .section-title { font-size: 24px; }
+            .section-subtitle { font-size: 14px; }
+            .section-tag { font-size: 11px; padding: 4px 14px; }
+
+            .franchise-card, .commercial-card { padding: 16px; }
+            .franchise-illustration, .commercial-illustration {
+                width: 140px;
+                height: 140px;
+                font-size: 48px;
+            }
+
             .gallery-grid { grid-template-columns: 1fr; }
             .gallery-item:nth-child(1) { grid-column: span 1; }
+            .gallery-item { max-height: 220px; }
         }
 
         /* Mobile nav overlay */
@@ -2383,7 +2449,7 @@
         (function() {
             var emojis = ['🍬','🍫','🍭','🧁','🍩','🍪','🍰','🍦','🍡','🎂','🍮','🍯'];
             var container = document.getElementById('globalCandies');
-            var count = 4;
+            var count = window.innerWidth <= 768 ? 2 : 4;
             var items = [];
             for (var i = 0; i < count; i++) {
                 var el = document.createElement('span');
@@ -2439,8 +2505,9 @@
             }
         });
 
-        // === Hero logo blur on scroll ===
+        // === Hero logo blur on scroll (desktop only) ===
         (function() {
+            if (window.innerWidth <= 768) return;
             const logo = document.querySelector('.hero-ellipse');
             if (!logo) return;
             const heroH = document.querySelector('.hero').offsetHeight;
@@ -2558,8 +2625,10 @@
         }
         blink();
 
-        // Mouse tracking
-        if (!isTouchDevice()) {
+        // Mouse tracking (desktop) vs autonomous animation (mobile)
+        const isMobile = () => isTouchDevice() || window.innerWidth <= 768;
+
+        if (!isMobile()) {
             window.addEventListener('mousemove', function(e) {
                 states.forEach(s => {
                     const r = s.rect.current;
@@ -2575,20 +2644,24 @@
                 });
             }, { passive: true });
         } else {
-            // Touch fallback: random movement
-            setInterval(() => {
-                states.forEach(s => {
-                    if (Math.random() > 0.3) {
+            // Mobile: each character gets its own independent random animation
+            states.forEach((s, idx) => {
+                const minDelay = idx === 0 ? 1500 : 2000;
+                const maxDelay = idx === 0 ? 3000 : 4000;
+                function randomLook() {
+                    if (Math.random() > 0.2) {
                         const angle = Math.random() * Math.PI * 2;
-                        const dist = 0.3 + Math.random() * 0.5;
+                        const dist = 0.3 + Math.random() * 0.7;
                         s.target.x = PUPIL_RANGE * Math.cos(angle) * dist;
                         s.target.y = PUPIL_RANGE * Math.sin(angle) * dist;
                     } else {
                         s.target.x = 0;
                         s.target.y = 0;
                     }
-                });
-            }, 2000 + Math.random() * 2000);
+                    setTimeout(randomLook, minDelay + Math.random() * (maxDelay - minDelay));
+                }
+                setTimeout(randomLook, idx * 800 + Math.random() * 500);
+            });
         }
 
         // Animation loop
