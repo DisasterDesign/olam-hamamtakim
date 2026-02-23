@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עולם הממתקים | תהיה ילד לרגע</title>
+    <meta name="description" content="רשת עולם הממתקים - רשת חנויות נוחות וממתקים בפריסה ארצית. מעל 80 סניפים ברחבי הארץ.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Heebo', sans-serif;
+            direction: rtl;
+            color: #2d2d2d;
+            background: #FFFFFF;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --candy-pink: #FF0009;
+            --candy-orange: #FF0009;
+            --candy-yellow: #006BBC;
+            --candy-green: #006BBC;
+            --candy-purple: #006BBC;
+            --candy-blue: #006BBC;
+            --candy-red: #FF0009;
+            --gradient-1: linear-gradient(135deg, #006BBC 0%, #4a9ad9 50%, #FF0009 100%);
+            --gradient-2: linear-gradient(135deg, #006BBC 0%, #006BBC 100%);
+            --gradient-3: linear-gradient(135deg, #006BBC 0%, #FFFFFF 100%);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-glow: 0 4px 20px rgba(255, 0, 9, 0.3);
+            --radius: 20px;
+            --radius-sm: 12px;
+        }
+
+        /* ===== ANIMATED BACKGROUND BLOBS ===== */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0;
+            display: none;
+            animation: blobFloat 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .blob-1 { width: 400px; height: 400px; background: var(--candy-pink); top: -100px; right: -100px; animation-delay: 0s; }
+        .blob-2 { width: 350px; height: 350px; background: var(--candy-yellow); top: 200px; left: -80px; animation-delay: -3s; }
+        .blob-3 { width: 300px; height: 300px; background: var(--candy-purple); bottom: -50px; right: 30%; animation-delay: -5s; }
+        .blob-4 { width: 250px; height: 250px; background: var(--candy-green); top: 50%; left: 20%; animation-delay: -2s; }
+
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* ===== GLASSMORPHISM UTILITY ===== */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+        }
+
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .top-bar-icons {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .top-bar-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-1);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s;
+            border: 1px solid #FF0009;
+        }
+        .top-bar-icon:hover {
+            transform: scale(1.2) rotate(-5deg);
+            box-shadow: 0 4px 20px rgba(0, 107, 188, 0.4), 0 0 15px rgba(0, 107, 188, 0.2);
+        }
+        .top-bar-icon:active {
+            transform: scale(0.95);
+        }
+        .top-bar-icon-label {
+            font-size: 11px;
+            text-align: center;
+            color: #666;
+            margin-top: 2px;
+        }
+        .top-bar-icon-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .top-bar-phone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        .top-bar-phone a { color: var(--candy-pink); font-weight: 600; }
+
+        /* ===== MAIN NAV ===== */
+        .main-nav {
+            position: fixed;
+            top: 88px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.3s;
+        }
+        .main-nav.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-logo-img {
+            height: 55px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        .nav-links a {
+            font-size: 18px;
+            font-weight: 600;
+            color: #006BBC;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--candy-pink); transform: translateY(-1px); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            display: flex;
+            gap: 14px;
+        }
+        .nav-cta a {
+            padding: 10px 26px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            border: 1px solid #FF0009;
+            box-shadow: 0 4px 15px rgba(255, 0, 9, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(255, 0, 9, 0.5), 0 0 20px rgba(255, 0, 9, 0.2);
+        }
+        .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #FF0009 0%, #cc3344 50%, #006BBC 100%);
+            color: white;
+            border: 1px solid #006BBC;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 107, 188, 0.5), 0 0 20px rgba(0, 107, 188, 0.2);
+        }
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        /* Mobile menu toggle */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .mobile-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--candy-pink);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding: 185px 40px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+            background: #FFFFFF;
+        }
+        .hero-ellipse {
+            position: fixed;
+            width: 117%;
+            max-width: 1620px;
+            top: calc(45% - 50px);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+            transition: none;
+            will-change: filter, opacity;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 11;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .hero-text { text-align: center; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--candy-pink);
+            margin-bottom: 16px;
+        }
+        .hero-title {
+            font-size: 62px;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 8px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-slogan {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--candy-purple);
+            margin-bottom: 8px;
+        }
+        .hero-desc {
+            font-size: 17px;
+            color: #666;
+            margin-bottom: 0;
+            line-height: 1.8;
+        }
+
+        .hero-characters {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 0;
+            margin: 200px 0 -134px;
+            position: relative;
+        }
+        .hero-character {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.15));
+        }
+        .character-wrap {
+            position: relative;
+            width: 600px;
+            flex-shrink: 0;
+            margin: 0 -90px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+        .character-wrap:hover,
+        .character-wrap.pop-up.visible:hover {
+            transform: scale(1.10) translateY(-15px);
+        }
+        .candy-burst {
+            position: absolute;
+            font-size: 52px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .char-glow-blue {
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            top: -10%;
+            left: -5%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 107, 188, 0.6) 0%, rgba(0, 107, 188, 0) 65%);
+            filter: blur(50px);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .char-glow-red {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            top: -5%;
+            left: 25%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 9, 0.6) 0%, rgba(255, 0, 9, 0) 65%);
+            filter: blur(50px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ===== CHARACTER EYES ===== */
+        .eye {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+            transition: transform 0.1s ease-out;
+        }
+        .eye svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* Toffee eyes */
+        .character-wrap.wrap-toffee .eye-left {
+            width: 5.95%;
+            top: 27.1%;
+            right: 45.8%;
+            z-index: -1;
+        }
+        .character-wrap.wrap-toffee .eye-right {
+            width: 6.3%;
+            top: 25.3%;
+            right: 36.1%;
+            z-index: -1;
+        }
+
+        /* Chocolate eyes */
+        .character-wrap.wrap-chocolate .eye-left {
+            width: 11%;
+            top: 37%;
+            right: 56.6%;
+            z-index: -1;
+        }
+        .character-wrap.wrap-chocolate .eye-right {
+            width: 11%;
+            top: 37%;
+            right: 38.3%;
+            z-index: -1;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 28px;
+            justify-content: center;
+        }
+        .hero-stat {
+            text-align: center;
+            padding: 16px 24px;
+        }
+        .hero-stat-num {
+            font-size: 36px;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-stat-label {
+            font-size: 13px;
+            color: #888;
+            font-weight: 500;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+        .hero-btns a {
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Floating candy decorations */
+        .candy-float {
+            position: absolute;
+            font-size: 40px;
+            animation: candyFloat 6s ease-in-out infinite;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0;
+            display: none;
+        }
+
+        @keyframes candyFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(15deg); }
+        }
+
+        .global-candies {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9;
+            overflow: hidden;
+        }
+        .global-candy {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* ===== QUICK INFO BAR ===== */
+        .quick-bar {
+            position: absolute;
+            z-index: 12;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .quick-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            transition: transform 0.3s;
+            cursor: default;
+        }
+        .quick-item:hover { transform: translateY(-3px); }
+        .quick-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            flex-shrink: 0;
+        }
+        .quick-icon.pink { background: var(--gradient-1); }
+        .quick-icon.green { background: linear-gradient(135deg, #006BBC, #006BBC); }
+        .quick-icon.purple { background: var(--gradient-3); }
+        .quick-text strong { display: block; font-size: 14px; color: #333; }
+        .quick-text span { font-size: 12px; color: #888; }
+
+        /* ===== SECTION STYLES ===== */
+        section {
+            position: relative;
+            padding: 80px 40px;
+            overflow: hidden;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-tag {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--candy-pink);
+            background: rgba(255, 0, 9, 0.1);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: 38px;
+            font-weight: 800;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+        }
+        .section-subtitle {
+            font-size: 17px;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* ===== ABOUT SECTION ===== */
+        #about {
+            background: #FFFFFF;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-text p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 16px;
+            line-height: 1.9;
+        }
+        .about-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .about-highlight {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            transition: transform 0.3s;
+        }
+        .about-highlight:hover { transform: scale(1.05); }
+        .about-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .about-img {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.4s;
+        }
+        .about-img:hover { transform: scale(1.03); }
+        .about-img:first-child { grid-row: span 2; aspect-ratio: auto; }
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+        }
+        .img-placeholder span { font-size: 12px; opacity: 0.8; margin-top: 6px; }
+        .img-placeholder.p1 { background: linear-gradient(135deg, #FF0009, #FF0009); }
+        .img-placeholder.p2 { background: linear-gradient(135deg, #006BBC, #FF0009); }
+        .img-placeholder.p3 { background: linear-gradient(135deg, #006BBC, #006BBC); }
+
+        /* ===== FRANCHISE SECTION ===== */
+        #franchise {
+            background: #FFFFFF;
+        }
+        .franchise-card {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .franchise-info h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2d2d2d;
+            margin-bottom: 16px;
+        }
+        .franchise-info p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .franchise-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .franchise-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: #555;
+        }
+        .franchise-feature-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: rgba(255, 0, 9, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .franchise-visual {
+            display: flex;
+            justify-content: center;
+        }
+        .franchise-illustration {
+            width: 260px;
+            height: 260px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            background: var(--gradient-3);
+            color: white;
+            box-shadow: 0 20px 50px rgba(0, 107, 188, 0.3);
+        }
+        .franchise-illustration span { font-size: 14px; margin-top: 10px; opacity: 0.8; }
+
+        /* ===== COMMERCIAL SECTION ===== */
+        #commercial {
+            background: #FFFFFF;
+        }
+        .commercial-card {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .commercial-visual {
+            display: flex;
+            justify-content: center;
+        }
+        .commercial-illustration {
+            width: 260px;
+            height: 260px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            background: linear-gradient(135deg, #006BBC, #006BBC);
+            color: white;
+            box-shadow: 0 20px 50px rgba(0, 107, 188, 0.3);
+        }
+        .commercial-illustration span { font-size: 14px; margin-top: 10px; opacity: 0.8; }
+        .commercial-info h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2d2d2d;
+            margin-bottom: 16px;
+        }
+        .commercial-info p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .commercial-locations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+        .location-tag {
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(0, 107, 188, 0.1);
+            color: var(--candy-blue);
+        }
+
+        /* ===== GALLERY SECTION ===== */
+        #gallery {
+            background: #FFFFFF;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+        }
+        .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: white;
+        }
+        .gallery-placeholder span { font-size: 13px; opacity: 0.8; margin-top: 8px; }
+        .gp1 { background: linear-gradient(135deg, #FF0009, #006BBC); }
+        .gp2 { background: linear-gradient(135deg, #006BBC, #FF0009); }
+        .gp3 { background: linear-gradient(135deg, #006BBC, #006BBC); }
+        .gp4 { background: linear-gradient(135deg, #FF0009, #006BBC); }
+        .gp5 { background: linear-gradient(135deg, #006BBC, #006BBC); }
+
+        /* ===== CONTACT SECTION ===== */
+        #contact {
+            background: #FFFFFF;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .contact-form-wrap {
+            padding: 40px;
+        }
+        .contact-form-wrap h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: #2d2d2d;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid #eee;
+            border-radius: var(--radius-sm);
+            font-family: 'Heebo', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: white;
+            color: #2d2d2d;
+            direction: rtl;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--candy-pink);
+            box-shadow: 0 0 0 4px rgba(255, 0, 9, 0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 50px;
+            background: var(--gradient-1);
+            color: white;
+            font-family: 'Heebo', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .contact-info-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-info-card {
+            padding: 28px;
+        }
+        .contact-info-card h3 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #2d2d2d;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+        .contact-item-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+        .contact-item-icon.email-icon { background: var(--gradient-1); }
+        .contact-item-icon.phone-icon { background: linear-gradient(135deg, #006BBC, #006BBC); }
+        .contact-item-text strong { display: block; font-size: 14px; color: #333; }
+        .contact-item-text span { font-size: 14px; color: #666; }
+        .contact-item-text a { color: var(--candy-pink); font-weight: 600; }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .social-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .social-ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .social-fb { background: linear-gradient(135deg, #1877F2, #42A5F5); }
+        .social-wa { background: linear-gradient(135deg, #25D366, #128C7E); }
+
+        .contact-notice {
+            padding: 20px;
+            font-size: 13px;
+            color: #888;
+            line-height: 1.7;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 50px 40px 20px;
+        }
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand .footer-logo {
+            font-size: 26px;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+        .footer-brand p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        .footer-links h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--candy-yellow);
+        }
+        .footer-links a {
+            display: block;
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: white; }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+        }
+        .footer-contact-item span:first-child { font-size: 18px; }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-bottom p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+        .footer-bottom-social {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-bottom-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .footer-bottom-social a:hover { background: rgba(255,255,255,0.2); }
+
+        .footer-hearing {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 0;
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            line-height: 1.7;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 16px;
+        }
+
+        /* ===== FLOATING WHATSAPP BUTTON ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 900;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            color: white;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(255, 0, 9, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            animation: whatsappPulse 2s infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(255, 0, 9, 0.5);
+        }
+        @keyframes whatsappPulse {
+            0%, 100% { box-shadow: 0 6px 20px rgba(255, 0, 9, 0.4); }
+            50% { box-shadow: 0 6px 20px rgba(255, 0, 9, 0.4), 0 0 0 15px rgba(255, 0, 9, 0.1); }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-right {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .fade-left {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .scale-in {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.7);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scale-in.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .pop-up {
+            opacity: 0;
+            transform: translateY(60px) scale(0.9);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pop-up.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .stagger-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== ACCESSIBILITY PANEL ===== */
+        .a11y-panel-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 1999;
+        }
+        .a11y-panel-overlay.active { display: block; }
+
+        .a11y-panel {
+            position: fixed;
+            top: 0;
+            left: -380px;
+            width: 360px;
+            height: 100%;
+            background: #fff;
+            z-index: 2000;
+            transition: left 0.35s ease;
+            box-shadow: 4px 0 30px rgba(0,0,0,0.15);
+            overflow-y: auto;
+            direction: rtl;
+        }
+        .a11y-panel.active { left: 0; }
+
+        .a11y-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: var(--gradient-2);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .a11y-header h3 {
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .a11y-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        .a11y-close:hover { background: rgba(255,255,255,0.35); }
+
+        .a11y-body { padding: 20px 24px; }
+
+        .a11y-section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            margin-top: 20px;
+        }
+        .a11y-section-title:first-child { margin-top: 0; }
+
+        .a11y-toggles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .a11y-toggle-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 8px;
+            border: 2px solid #eee;
+            border-radius: 14px;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Heebo', sans-serif;
+            text-align: center;
+        }
+        .a11y-toggle-btn:hover {
+            border-color: var(--candy-purple);
+            background: rgba(0, 107, 188, 0.04);
+        }
+        .a11y-toggle-btn.active {
+            border-color: var(--candy-purple);
+            background: rgba(0, 107, 188, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 107, 188, 0.15);
+        }
+        .a11y-toggle-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #f5f0ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: background 0.25s;
+        }
+        .a11y-toggle-btn.active .a11y-toggle-icon {
+            background: var(--gradient-2);
+            color: white;
+        }
+        .a11y-toggle-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+            line-height: 1.3;
+        }
+
+        .a11y-slider-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .a11y-slider-group:last-child { border-bottom: none; }
+        .a11y-slider-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .a11y-slider-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .a11y-slider-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 2px solid #eee;
+            background: white;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--candy-purple);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-family: 'Heebo', sans-serif;
+        }
+        .a11y-slider-btn:hover {
+            border-color: var(--candy-purple);
+            background: rgba(0, 107, 188, 0.05);
+        }
+        .a11y-slider-value {
+            min-width: 42px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .a11y-reset {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            border: 2px solid #FF0009;
+            border-radius: 50px;
+            background: white;
+            color: #FF0009;
+            font-family: 'Heebo', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .a11y-reset:hover {
+            background: #FF0009;
+            color: white;
+        }
+
+        /* ===== ACCESSIBILITY BODY MODIFIERS ===== */
+        body.a11y-high-contrast { filter: contrast(1.4); }
+        body.a11y-high-contrast * { border-color: currentColor !important; }
+
+        body.a11y-invert-colors { filter: invert(1) hue-rotate(180deg); }
+        body.a11y-invert-colors img,
+        body.a11y-invert-colors video,
+        body.a11y-invert-colors svg,
+        body.a11y-invert-colors picture { filter: invert(1) hue-rotate(180deg); }
+
+        body.a11y-grayscale { filter: grayscale(1); }
+
+        body.a11y-highlight-links a {
+            padding: 2px 4px;
+            color: #000 !important;
+            background-color: #ff0 !important;
+            text-decoration: underline !important;
+        }
+        body.a11y-highlight-links a:focus,
+        body.a11y-highlight-links a:hover {
+            background-color: gold !important;
+        }
+
+        body.a11y-readable-font,
+        body.a11y-readable-font * {
+            font-family: Arial, Helvetica, sans-serif !important;
+        }
+
+        body.a11y-pause-animations *,
+        body.a11y-pause-animations *::before,
+        body.a11y-pause-animations *::after {
+            transition: none !important;
+            animation: none !important;
+        }
+
+        body.a11y-big-cursor,
+        body.a11y-big-cursor * {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 0 L4 28 L10 22 L16 30 L20 28 L14 20 L22 20 Z' fill='black' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 4 0, auto !important;
+        }
+
+        body.a11y-focus-highlight *:focus {
+            outline: 4px solid #f60 !important;
+            outline-offset: 2px !important;
+            box-shadow: 0 0 0 6px rgba(255, 102, 0, 0.3) !important;
+        }
+
+        @media (max-width: 480px) {
+            .a11y-panel { width: 100%; left: -100%; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .character-wrap { width: 250px; margin: 0 -30px; }
+            .hero-title { font-size: 52px; }
+            .about-grid { grid-template-columns: 1fr; }
+            .franchise-card, .commercial-card { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item:nth-child(1) { grid-column: span 2; }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar { padding: 6px 16px; }
+            .top-bar-icons { gap: 8px; }
+            .top-bar-icon { width: 36px; height: 36px; font-size: 15px; }
+            .top-bar-icon-label { display: none; }
+            .main-nav { padding: 8px 16px; top: 66px; }
+            .nav-links { display: none; }
+            .nav-cta { display: none; }
+            .mobile-toggle { display: flex; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                left: 0;
+                background: white;
+                padding: 20px;
+                gap: 16px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                border-radius: 0 0 var(--radius) var(--radius);
+            }
+            .nav-cta.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: calc(100% + 200px);
+                right: 0;
+                left: 0;
+                background: white;
+                padding: 0 20px 20px;
+            }
+
+            .hero { padding: 140px 20px 60px; min-height: auto; }
+            .hero-title { font-size: 36px; }
+            .hero-slogan { font-size: 22px; }
+            .hero-desc { font-size: 15px; }
+            .character-wrap { width: 200px; margin: 0 -20px; }
+            .hero-characters { gap: 10px; margin: 20px 0 28px; }
+            .hero-stats { flex-direction: column; gap: 12px; }
+            .hero-btns { flex-direction: column; align-items: center; }
+
+            section { padding: 50px 20px; }
+            .section-title { font-size: 28px; }
+            .quick-bar { flex-direction: column; margin-top: -30px; padding: 16px; }
+            .form-row { grid-template-columns: 1fr; }
+            .franchise-card, .commercial-card { padding: 24px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-item:nth-child(1) { grid-column: span 2; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 30px; }
+            .hero-slogan { font-size: 20px; }
+            .character-wrap { width: 150px; margin: 0 -10px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-item:nth-child(1) { grid-column: span 1; }
+        }
+
+        /* Mobile nav overlay */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 998;
+        }
+        .mobile-nav-overlay.active { display: block; }
+
+        /* Mobile slide menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: white;
+            z-index: 1001;
+            padding: 80px 30px 30px;
+            transition: right 0.3s ease;
+            box-shadow: -4px 0 30px rgba(0,0,0,0.1);
+        }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu a {
+            display: block;
+            padding: 14px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .mobile-menu .mobile-cta {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .mobile-menu .mobile-cta a {
+            text-align: center;
+            padding: 12px;
+            border-radius: 50px;
+            border-bottom: none;
+            font-size: 15px;
+        }
+        .mobile-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="global-candies" id="globalCandies"></div>
+
+    <!-- ===== TOP BAR ===== -->
+    <div class="top-bar">
+        <div class="nav-logo">
+            <img src="logo.png" alt="עולם הממתקים" class="nav-logo-img">
+        </div>
+        <div class="top-bar-icons">
+            <div class="top-bar-icon-wrap">
+                <a href="#contact" class="top-bar-icon" title="צור קשר">✉</a>
+                <span class="top-bar-icon-label">צור קשר</span>
+            </div>
+            <div class="top-bar-icon-wrap">
+                <a href="#franchise" class="top-bar-icon" title="זכיינות">🏪</a>
+                <span class="top-bar-icon-label">זכיינות</span>
+            </div>
+            <div class="top-bar-icon-wrap">
+                <a href="#commercial" class="top-bar-icon" title="שטחים">🏢</a>
+                <span class="top-bar-icon-label">שטחים</span>
+            </div>
+            <div class="top-bar-icon-wrap">
+                <button class="top-bar-icon accessibility-top-btn" title="נגישות" onclick="toggleA11yPanel()">♿</button>
+                <span class="top-bar-icon-label">נגישות</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN NAVIGATION ===== -->
+    <nav class="main-nav" id="mainNav">
+        <div class="top-bar-phone">
+            <span>📞</span>
+            <a href="tel:0509444870">050-9444870</a>
+            <span style="color:#ccc">|</span>
+            <span style="font-size:12px; color:#999;">וואטסאפ / טלפון</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#hero">בית</a>
+            <a href="#about">אודות</a>
+            <a href="#franchise">זכיינות</a>
+            <a href="#commercial">שטחים מסחריים</a>
+            <a href="#gallery">גלריה</a>
+            <a href="#contact">צור קשר</a>
+        </div>
+        <div class="nav-cta">
+            <a href="#franchise" class="btn-primary">לזכיינות</a>
+            <a href="#commercial" class="btn-secondary">להצעת שטח</a>
+        </div>
+        <button class="mobile-toggle" id="mobileToggle" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-nav-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-close" onclick="toggleMobileMenu()">✕</button>
+        <a href="#hero" onclick="toggleMobileMenu()">בית</a>
+        <a href="#about" onclick="toggleMobileMenu()">אודות</a>
+        <a href="#franchise" onclick="toggleMobileMenu()">זכיינות</a>
+        <a href="#commercial" onclick="toggleMobileMenu()">שטחים מסחריים</a>
+        <a href="#gallery" onclick="toggleMobileMenu()">גלריה</a>
+        <a href="#contact" onclick="toggleMobileMenu()">צור קשר</a>
+        <div class="mobile-cta">
+            <a href="#franchise" class="btn-primary" onclick="toggleMobileMenu()">לזכיינות</a>
+            <a href="#commercial" class="btn-secondary" onclick="toggleMobileMenu()">להצעת שטח מסחרי</a>
+        </div>
+    </div>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="hero">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+
+        <img src="logo-hero.png" alt="עולם הממתקים" class="hero-ellipse scale-in">
+
+        <div class="candy-float candy-1">🍭</div>
+        <div class="candy-float candy-2">🍫</div>
+        <div class="candy-float candy-3">🍬</div>
+        <div class="candy-float candy-4">🧁</div>
+        <div class="candy-float candy-5">🍩</div>
+
+        <div class="hero-content">
+            <div class="hero-text">
+            </div>
+
+            <div class="hero-characters">
+                <div class="character-wrap wrap-toffee pop-up">
+                    <div class="char-glow-red"></div>
+                    <img src="toffee-sm.png" alt="דמות טופי" class="hero-character char-toffee">
+                    <div class="eye eye-left">
+                        <svg viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="sclera-tl" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ECECEC"/><stop offset="100%" stop-color="#FFFFFF"/>
+                                </linearGradient>
+                                <radialGradient id="iris-tl" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#000"/><stop offset="49%" stop-color="#1A6BB5"/>
+                                    <stop offset="90%" stop-color="#2E8BD8"/><stop offset="100%" stop-color="#000"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="99" fill="url(#sclera-tl)"/>
+                            <circle cx="100" cy="100" r="83" fill="#FFF"/>
+                            <g class="iris-group">
+                                <circle cx="100" cy="100" r="44" fill="url(#iris-tl)" stroke="#1D0E07" stroke-width="3"/>
+                                <circle cx="100" cy="100" r="22" fill="#000"/>
+                                <circle cx="87" cy="87" r="7" fill="#E4E4E4" opacity="0.9"/>
+                                <circle cx="113" cy="113" r="4" fill="#E4E4E4" opacity="0.5"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="eye eye-right">
+                        <svg viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="sclera-tr" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ECECEC"/><stop offset="100%" stop-color="#FFFFFF"/>
+                                </linearGradient>
+                                <radialGradient id="iris-tr" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#000"/><stop offset="49%" stop-color="#1A6BB5"/>
+                                    <stop offset="90%" stop-color="#2E8BD8"/><stop offset="100%" stop-color="#000"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="99" fill="url(#sclera-tr)"/>
+                            <circle cx="100" cy="100" r="83" fill="#FFF"/>
+                            <g class="iris-group">
+                                <circle cx="100" cy="100" r="44" fill="url(#iris-tr)" stroke="#1D0E07" stroke-width="3"/>
+                                <circle cx="100" cy="100" r="22" fill="#000"/>
+                                <circle cx="87" cy="87" r="7" fill="#E4E4E4" opacity="0.9"/>
+                                <circle cx="113" cy="113" r="4" fill="#E4E4E4" opacity="0.5"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <div class="character-wrap wrap-chocolate pop-up">
+                    <div class="char-glow-blue"></div>
+                    <img src="chocolate-sm.png" alt="דמות שוקולד" class="hero-character char-chocolate">
+                    <div class="eye eye-left">
+                        <svg viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="sclera-cl" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ECECEC"/><stop offset="100%" stop-color="#FFFFFF"/>
+                                </linearGradient>
+                                <radialGradient id="iris-cl" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#000"/><stop offset="49%" stop-color="#56301D"/>
+                                    <stop offset="90%" stop-color="#763C25"/><stop offset="100%" stop-color="#000"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="99" fill="url(#sclera-cl)"/>
+                            <circle cx="100" cy="100" r="83" fill="#FFF"/>
+                            <g class="iris-group">
+                                <circle cx="100" cy="100" r="55" fill="url(#iris-cl)" stroke="#1D0E07" stroke-width="4"/>
+                                <circle cx="100" cy="100" r="28" fill="#000"/>
+                                <circle cx="84" cy="84" r="9" fill="#E4E4E4" opacity="0.9"/>
+                                <circle cx="116" cy="116" r="5" fill="#E4E4E4" opacity="0.5"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="eye eye-right">
+                        <svg viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="sclera-cr" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ECECEC"/><stop offset="100%" stop-color="#FFFFFF"/>
+                                </linearGradient>
+                                <radialGradient id="iris-cr" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#000"/><stop offset="49%" stop-color="#56301D"/>
+                                    <stop offset="90%" stop-color="#763C25"/><stop offset="100%" stop-color="#000"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="99" fill="url(#sclera-cr)"/>
+                            <circle cx="100" cy="100" r="83" fill="#FFF"/>
+                            <g class="iris-group">
+                                <circle cx="100" cy="100" r="55" fill="url(#iris-cr)" stroke="#1D0E07" stroke-width="4"/>
+                                <circle cx="100" cy="100" r="28" fill="#000"/>
+                                <circle cx="84" cy="84" r="9" fill="#E4E4E4" opacity="0.9"/>
+                                <circle cx="116" cy="116" r="5" fill="#E4E4E4" opacity="0.5"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            <div class="hero-btns">
+                <a href="#franchise" class="btn-primary">לזכיינות →</a>
+                <a href="#commercial" class="btn-secondary">להצעת שטח מסחרי</a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="hero-stat glass">
+                    <div class="hero-stat-num">80+</div>
+                    <div class="hero-stat-label">סניפים</div>
+                </div>
+                <div class="hero-stat glass">
+                    <div class="hero-stat-num">40+</div>
+                    <div class="hero-stat-label">שנות פעילות</div>
+                </div>
+                <div class="hero-stat glass">
+                    <div class="hero-stat-num">🇮🇱</div>
+                    <div class="hero-stat-label">פריסה ארצית</div>
+                </div>
+            </div>
+            -->
+
+        </div>
+
+        <div class="quick-bar fade-up">
+            <div class="quick-item stagger-item">
+                <div class="quick-icon pink">🏪</div>
+                <div class="quick-text">
+                    <strong>80+ סניפים</strong>
+                    <span>פריסה ארצית</span>
+                </div>
+            </div>
+            <div class="quick-item stagger-item">
+                <div class="quick-icon green">📍</div>
+                <div class="quick-text">
+                    <strong>מיקומים מרכזיים</strong>
+                    <span>קניונים, בתי חולים, תחנות רכבת</span>
+                </div>
+            </div>
+            <div class="quick-item stagger-item">
+                <div class="quick-icon purple">🤝</div>
+                <div class="quick-text">
+                    <strong>שיטת זכיינות</strong>
+                    <span>הצטרפו לרשת מנוסה</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag">מי אנחנו</span>
+                <h2 class="section-title">אודות רשת עולם הממתקים</h2>
+                <p class="section-subtitle">מהרשתות המובילות בישראל בתחום חנויות הנוחות והממתקים</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text fade-right">
+                    <p>רשת <strong>עולם הממתקים</strong>, מהרשתות המובילות בישראל בתחום חנויות הנוחות והממתקים. הרשת הוקמה בשנות ה-80 בירושלים, והתפתחה לרשת בפריסה ארצית המונה למעלה מ-80 סניפים.</p>
+                    <p>הרשת פועלת בשיטת זכיינות ומפעילה חנויות נוחות, חנויות ממתקים ודוכנים במיקומים אסטרטגיים ברחבי הארץ: קניונים מובילים, בתי חולים, תחנות רכבת, מרכזים מסחריים גדולים ומרכזים שכונתיים.</p>
+                    <p>אנו ממשיכים להתרחב ולפתוח נקודות חדשות במיקומים מרכזיים בישראל.</p>
+
+                    <div class="about-highlights">
+                        <div class="about-highlight glass stagger-item">🏬 קניונים מובילים</div>
+                        <div class="about-highlight glass stagger-item">🏥 בתי חולים</div>
+                        <div class="about-highlight glass stagger-item">🚂 תחנות רכבת</div>
+                        <div class="about-highlight glass stagger-item">🏙️ מרכזים מסחריים</div>
+                        <div class="about-highlight glass stagger-item">🏘️ מרכזים שכונתיים</div>
+                    </div>
+                </div>
+
+                <div class="about-images fade-left">
+                    <div class="about-img">
+                        <img src="store-belinson.jpeg" alt="סניף בלינסון" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                    <div class="about-img">
+                        <img src="store-galil-yam.jpg" alt="סניף גליל ים" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                    <div class="about-img">
+                        <img src="store-ofer-rehovot.jpg" alt="סניף קניון עופר רחובות" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FRANCHISE SECTION ===== -->
+    <section id="franchise">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag">הזדמנות עסקית</span>
+                <h2 class="section-title">זכיינות</h2>
+                <p class="section-subtitle">חושבים להיות עצמאיים? מחפשים להצטרף לרשת יציבה ומנוסה?</p>
+            </div>
+
+            <div class="franchise-card glass fade-up">
+                <div class="franchise-info">
+                    <h3>הצטרפו לרשת עם עשרות שנות פעילות</h3>
+                    <p>רשת עולם הממתקים פועלת בשיטת הזכיינות ומציעה הזדמנות עסקית במיקומים מרכזיים ברחבי הארץ. הצטרפו לרשת מובילה עם מוניטין, ניסיון ותשתית עסקית מוכחת.</p>
+
+                    <div class="franchise-features">
+                        <div class="franchise-feature stagger-item">
+                            <div class="franchise-feature-icon">✓</div>
+                            <span>מותג מוכר עם למעלה מ-40 שנות פעילות</span>
+                        </div>
+                        <div class="franchise-feature stagger-item">
+                            <div class="franchise-feature-icon">✓</div>
+                            <span>ליווי מקצועי מלא לאורך כל הדרך</span>
+                        </div>
+                        <div class="franchise-feature stagger-item">
+                            <div class="franchise-feature-icon">✓</div>
+                            <span>מיקומים אסטרטגיים עם תנועה גבוהה</span>
+                        </div>
+                        <div class="franchise-feature stagger-item">
+                            <div class="franchise-feature-icon">✓</div>
+                            <span>מערך הפצה ושרשרת אספקה מסודרת</span>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="btn-primary" style="display:inline-flex; padding:14px 36px; border-radius:50px; font-size:16px; font-weight:700;">
+                        השאירו פרטים לזכיינות →
+                    </a>
+                </div>
+                <div class="franchise-visual">
+                    <img src="store-givatayim.png" alt="דוכן זכיינות גבעתיים" class="franchise-illustration" style="object-fit:cover;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COMMERCIAL SPACES SECTION ===== -->
+    <section id="commercial">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag">התרחבות</span>
+                <h2 class="section-title">שטחים מסחריים</h2>
+                <p class="section-subtitle">אנו ממשיכים להתרחב ולפתוח נקודות חדשות ברחבי הארץ</p>
+            </div>
+
+            <div class="commercial-card glass fade-up">
+                <div class="commercial-visual">
+                    <img src="store-narkisim1.jpeg" alt="סניף נרקיסים" class="commercial-illustration" style="object-fit:cover;">
+                </div>
+                <div class="commercial-info">
+                    <h3>יש לכם נכס מסחרי? נשמח לשמוע</h3>
+                    <p>בעלי נכסים, יזמים וחברות נדל"ן — נשמח לבחון הצעות לשטחי מסחר במיקומים מרכזיים.</p>
+                    <p>אנו מחפשים מיקומים עם תנועה גבוהה בפריסה ארצית:</p>
+
+                    <div class="commercial-locations">
+                        <span class="location-tag stagger-item">קניונים</span>
+                        <span class="location-tag stagger-item">בתי חולים</span>
+                        <span class="location-tag stagger-item">תחנות רכבת</span>
+                        <span class="location-tag stagger-item">מרכזים מסחריים</span>
+                        <span class="location-tag stagger-item">מרכזי ערים</span>
+                        <span class="location-tag stagger-item">מרכזים שכונתיים</span>
+                    </div>
+
+                    <a href="#contact" class="btn-primary" style="display:inline-flex; padding:14px 36px; border-radius:50px; font-size:16px; font-weight:700;">
+                        להצעת נכס מסחרי →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY SECTION ===== -->
+    <section id="gallery">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag">הסניפים שלנו</span>
+                <h2 class="section-title">גלריית תמונות</h2>
+                <p class="section-subtitle">הצצה לסניפי עולם הממתקים ברחבי הארץ</p>
+            </div>
+
+            <div class="gallery-grid fade-up">
+                <div class="gallery-item stagger-item">
+                    <img src="store-grand-haifa.jpg" alt="סניף גרנד חיפה" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-mamilla.jpeg" alt="סניף ממילא ירושלים" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-kfar-ganim1.jpg" alt="סניף כפר גנים" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-gelilot.png" alt="סניף גלילות" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-ir-yamim.jpg" alt="דוכן עיר ימים" class="gallery-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag">דברו איתנו</span>
+                <h2 class="section-title">יצירת קשר</h2>
+                <p class="section-subtitle">לפניות בנושא זכיינות, הצעת שטח מסחרי או לכל עניין אחר</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-form-wrap glass fade-right">
+                    <h3>📩 השאירו פרטים</h3>
+                    <form id="contactForm" onsubmit="sendToWhatsApp(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">שם מלא *</label>
+                                <input type="text" id="fullName" name="fullName" required placeholder="הזינו את שמכם">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">טלפון *</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="050-0000000" dir="ltr" style="text-align:right;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">אימייל</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" dir="ltr" style="text-align:right;">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">נושא הפנייה *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected>בחרו נושא</option>
+                                <option value="זכיינות">זכיינות</option>
+                                <option value="שטח מסחרי">שטח מסחרי</option>
+                                <option value="אחר">אחר</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">תוכן ההודעה</label>
+                            <textarea id="message" name="message" placeholder="ספרו לנו במה נוכל לעזור..."></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">
+                            <span>📲</span>
+                            שליחה דרך וואטסאפ
+                        </button>
+                    </form>
+                </div>
+
+                <div class="contact-info-wrap fade-left">
+                    <div class="contact-info-card glass">
+                        <h3>פרטי התקשרות</h3>
+                        <div class="contact-item stagger-item">
+                            <div class="contact-item-icon email-icon">✉</div>
+                            <div class="contact-item-text">
+                                <strong>אימייל</strong>
+                                <a href="mailto:olamhamamtakim@gmail.com">olamhamamtakim@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item stagger-item">
+                            <div class="contact-item-icon phone-icon">📞</div>
+                            <div class="contact-item-text">
+                                <strong>טלפון / וואטסאפ</strong>
+                                <a href="tel:0509444870">050-9444870</a>
+                            </div>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/olam.hamamtakim/" target="_blank" rel="noopener" class="social-link social-ig" title="אינסטגרם">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=100063974684855&locale=he_IL" target="_blank" rel="noopener" class="social-link social-fb" title="פייסבוק">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </a>
+                            <a href="https://wa.me/9720509444870" target="_blank" rel="noopener" class="social-link social-wa" title="וואטסאפ">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-notice glass">
+                        <p>💡 <strong>שימו לב:</strong> הסניפים מופעלים על ידי זכיינים עצמאיים. לפניות שירות לקוחות בנוגע לרכישה בסניף מסוים, ניתן לפנות ישירות לסניף הרלוונטי.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">🍬 עולם הממתקים</div>
+                <p>רשת חנויות נוחות וממתקים בפריסה ארצית. מעל 80 סניפים ברחבי הארץ. מאז שנות ה-80.</p>
+                <div style="display:flex; gap:10px;">
+                    <a href="https://www.instagram.com/olam.hamamtakim/" target="_blank" rel="noopener" class="social-link social-ig" style="width:40px;height:40px;border-radius:10px;font-size:18px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100063974684855&locale=he_IL" target="_blank" rel="noopener" class="social-link social-fb" style="width:40px;height:40px;border-radius:10px;font-size:18px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>קישורים מהירים</h4>
+                <a href="#hero">בית</a>
+                <a href="#about">אודות</a>
+                <a href="#franchise">זכיינות</a>
+                <a href="#commercial">שטחים מסחריים</a>
+                <a href="#contact">צור קשר</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>פרטי התקשרות</h4>
+                <div class="footer-contact-item">
+                    <span>✉</span>
+                    <a href="mailto:olamhamamtakim@gmail.com">olamhamamtakim@gmail.com</a>
+                </div>
+                <div class="footer-contact-item">
+                    <span>📞</span>
+                    <a href="tel:0509444870">050-9444870</a>
+                </div>
+                <div class="footer-contact-item">
+                    <span>📱</span>
+                    <a href="https://wa.me/9720509444870" target="_blank">וואטסאפ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-hearing">
+            ♿ בסניפי הרשת הותקנו מערכות עזר לשמיעה מסוג לולאת השראה. לשימוש במערכת יש להעביר את מכשיר השמיעה למצב T או להשתמש באוזנייה ייעודית של המערכת.
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 עולם הממתקים | כל הזכויות שמורות</p>
+            <div class="footer-bottom-social">
+                <a href="https://www.instagram.com/olam.hamamtakim/" target="_blank" rel="noopener">📷</a>
+                <a href="https://www.facebook.com/profile.php?id=100063974684855&locale=he_IL" target="_blank" rel="noopener">👤</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== FLOATING WHATSAPP ===== -->
+    <a href="https://wa.me/9720509444870" target="_blank" rel="noopener" class="whatsapp-float" title="שלחו הודעה בוואטסאפ">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <!-- ===== ACCESSIBILITY PANEL ===== -->
+    <div class="a11y-panel-overlay" id="a11yOverlay" onclick="toggleA11yPanel()"></div>
+    <div class="a11y-panel" id="a11yPanel">
+        <div class="a11y-header">
+            <h3>♿ הגדרות נגישות</h3>
+            <button class="a11y-close" onclick="toggleA11yPanel()">✕</button>
+        </div>
+        <div class="a11y-body">
+            <div class="a11y-section-title">התאמות תצוגה</div>
+            <div class="a11y-toggles">
+                <button class="a11y-toggle-btn" id="a11y-high-contrast" onclick="toggleA11ySetting('high-contrast')">
+                    <div class="a11y-toggle-icon">🔲</div>
+                    <span class="a11y-toggle-label">ניגודיות גבוהה</span>
+                </button>
+                <button class="a11y-toggle-btn" id="a11y-invert-colors" onclick="toggleA11ySetting('invert-colors')">
+                    <div class="a11y-toggle-icon">🔄</div>
+                    <span class="a11y-toggle-label">היפוך צבעים</span>
+                </button>
+                <button class="a11y-toggle-btn" id="a11y-grayscale" onclick="toggleA11ySetting('grayscale')">
+                    <div class="a11y-toggle-icon">⚫</div>
+                    <span class="a11y-toggle-label">גווני אפור</span>
+                </button>
+                <button class="a11y-toggle-btn" id="a11y-highlight-links" onclick="toggleA11ySetting('highlight-links')">
+                    <div class="a11y-toggle-icon">🔗</div>
+                    <span class="a11y-toggle-label">הדגשת קישורים</span>
+                </button>
+                <button class="a11y-toggle-btn" id="a11y-readable-font" onclick="toggleA11ySetting('readable-font')">
+                    <div class="a11y-toggle-icon">Aa</div>
+                    <span class="a11y-toggle-label">פונט קריא</span>
+                </button>
+                <button class="a11y-toggle-btn" id="a11y-pause-animations" onclick="toggleA11ySetting('pause-animations')">
+                    <div class="a11y-toggle-icon">⏸</div>
+                    <span class="a11y-toggle-label">עצירת אנימציות</span>
+                </button>
+                <button class="a11y-toggle-btn" id="a11y-big-cursor" onclick="toggleA11ySetting('big-cursor')">
+                    <div class="a11y-toggle-icon">🖱</div>
+                    <span class="a11y-toggle-label">סמן גדול</span>
+                </button>
+                <button class="a11y-toggle-btn" id="a11y-focus-highlight" onclick="toggleA11ySetting('focus-highlight')">
+                    <div class="a11y-toggle-icon">🎯</div>
+                    <span class="a11y-toggle-label">הדגשת פוקוס</span>
+                </button>
+            </div>
+
+            <div class="a11y-section-title">גודל טקסט</div>
+            <div class="a11y-slider-group">
+                <span class="a11y-slider-label">🔤 גודל גופן</span>
+                <div class="a11y-slider-controls">
+                    <button class="a11y-slider-btn" onclick="adjustFontSize(-10)">−</button>
+                    <span class="a11y-slider-value" id="fontSizeValue">100%</span>
+                    <button class="a11y-slider-btn" onclick="adjustFontSize(10)">+</button>
+                </div>
+            </div>
+            <div class="a11y-slider-group">
+                <span class="a11y-slider-label">↕ גובה שורה</span>
+                <div class="a11y-slider-controls">
+                    <button class="a11y-slider-btn" onclick="adjustLineHeight(-0.2)">−</button>
+                    <span class="a11y-slider-value" id="lineHeightValue">1.7</span>
+                    <button class="a11y-slider-btn" onclick="adjustLineHeight(0.2)">+</button>
+                </div>
+            </div>
+            <div class="a11y-slider-group">
+                <span class="a11y-slider-label">↔ מרווח אותיות</span>
+                <div class="a11y-slider-controls">
+                    <button class="a11y-slider-btn" onclick="adjustLetterSpacing(-0.5)">−</button>
+                    <span class="a11y-slider-value" id="letterSpacingValue">0px</span>
+                    <button class="a11y-slider-btn" onclick="adjustLetterSpacing(0.5)">+</button>
+                </div>
+            </div>
+
+            <button class="a11y-reset" onclick="resetA11y()">
+                ↺ איפוס כל ההגדרות
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // === Accessibility Widget ===
+        const a11yDefaults = {
+            toggles: {
+                'high-contrast': false,
+                'invert-colors': false,
+                'grayscale': false,
+                'highlight-links': false,
+                'readable-font': false,
+                'pause-animations': false,
+                'big-cursor': false,
+                'focus-highlight': false
+            },
+            fontSize: 100,
+            lineHeight: 1.7,
+            letterSpacing: 0
+        };
+
+        let a11ySettings = JSON.parse(JSON.stringify(a11yDefaults));
+
+        function loadA11ySettings() {
+            try {
+                const saved = localStorage.getItem('a11y-settings');
+                if (saved) {
+                    a11ySettings = JSON.parse(saved);
+                    applyA11ySettings();
+                }
+            } catch(e) {}
+        }
+
+        function saveA11ySettings() {
+            try {
+                localStorage.setItem('a11y-settings', JSON.stringify(a11ySettings));
+            } catch(e) {}
+        }
+
+        function applyA11ySettings() {
+            // Apply toggles
+            for (const [key, val] of Object.entries(a11ySettings.toggles)) {
+                const cls = 'a11y-' + key;
+                if (val) {
+                    document.body.classList.add(cls);
+                } else {
+                    document.body.classList.remove(cls);
+                }
+                const btn = document.getElementById('a11y-' + key);
+                if (btn) btn.classList.toggle('active', val);
+            }
+            // Apply font size
+            document.documentElement.style.fontSize = a11ySettings.fontSize + '%';
+            document.getElementById('fontSizeValue').textContent = a11ySettings.fontSize + '%';
+            // Apply line height
+            document.documentElement.style.setProperty('--a11y-line-height', a11ySettings.lineHeight);
+            document.body.style.lineHeight = a11ySettings.lineHeight;
+            document.getElementById('lineHeightValue').textContent = a11ySettings.lineHeight.toFixed(1);
+            // Apply letter spacing
+            document.documentElement.style.setProperty('--a11y-letter-spacing', a11ySettings.letterSpacing + 'px');
+            document.body.style.letterSpacing = a11ySettings.letterSpacing + 'px';
+            document.getElementById('letterSpacingValue').textContent = a11ySettings.letterSpacing + 'px';
+        }
+
+        function toggleA11yPanel() {
+            document.getElementById('a11yPanel').classList.toggle('active');
+            document.getElementById('a11yOverlay').classList.toggle('active');
+        }
+
+        function toggleA11ySetting(key) {
+            a11ySettings.toggles[key] = !a11ySettings.toggles[key];
+            applyA11ySettings();
+            saveA11ySettings();
+        }
+
+        function adjustFontSize(delta) {
+            a11ySettings.fontSize = Math.max(50, Math.min(200, a11ySettings.fontSize + delta));
+            applyA11ySettings();
+            saveA11ySettings();
+        }
+
+        function adjustLineHeight(delta) {
+            a11ySettings.lineHeight = Math.max(1, Math.min(3, parseFloat((a11ySettings.lineHeight + delta).toFixed(1))));
+            applyA11ySettings();
+            saveA11ySettings();
+        }
+
+        function adjustLetterSpacing(delta) {
+            a11ySettings.letterSpacing = Math.max(-2, Math.min(10, parseFloat((a11ySettings.letterSpacing + delta).toFixed(1))));
+            applyA11ySettings();
+            saveA11ySettings();
+        }
+
+        function resetA11y() {
+            a11ySettings = JSON.parse(JSON.stringify(a11yDefaults));
+            document.documentElement.style.fontSize = '';
+            document.body.style.lineHeight = '';
+            document.body.style.letterSpacing = '';
+            applyA11ySettings();
+            saveA11ySettings();
+        }
+
+        // Load saved settings on page load
+        loadA11ySettings();
+
+        // === Scroll animations (Intersection Observer) ===
+        const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up, .fade-right, .fade-left, .scale-in, .pop-up').forEach(el => observer.observe(el));
+
+        // === Stagger animations ===
+        const staggerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const parent = entry.target;
+                    const items = parent.querySelectorAll('.stagger-item');
+                    items.forEach((item, i) => {
+                        setTimeout(() => item.classList.add('visible'), i * 120);
+                    });
+                    staggerObserver.unobserve(parent);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.gallery-grid, .franchise-features, .commercial-locations, .about-highlights, .quick-bar, .contact-info-card').forEach(el => staggerObserver.observe(el));
+
+        // === Hero entrance on load ===
+        window.addEventListener('load', () => {
+            setTimeout(() => document.querySelector('.hero-ellipse').classList.add('visible'), 200);
+            setTimeout(() => document.querySelector('.wrap-toffee').classList.add('visible'), 600);
+            setTimeout(() => document.querySelector('.wrap-chocolate').classList.add('visible'), 800);
+        });
+
+        // === Candy burst on character hover ===
+        (function() {
+            var candies = ['🍬','🍫','🍭','🧁','🍩','🍪','🍰','🎂','🍡','🍦'];
+            var wraps = document.querySelectorAll('.character-wrap');
+            wraps.forEach(function(wrap) {
+                var timer = null;
+                wrap.addEventListener('mouseenter', function() {
+                    burst(wrap);
+                    timer = setInterval(function() { burst(wrap); }, 300);
+                });
+                wrap.addEventListener('mouseleave', function() {
+                    clearInterval(timer);
+                    timer = null;
+                });
+            });
+            function burst(wrap) {
+                var count = 2 + Math.floor(Math.random() * 2);
+                for (var i = 0; i < count; i++) {
+                    var el = document.createElement('span');
+                    el.className = 'candy-burst';
+                    el.textContent = candies[Math.floor(Math.random() * candies.length)];
+                    el.style.left = 25 + Math.random() * 50 + '%';
+                    el.style.top = '20%';
+                    el.style.opacity = '1';
+                    wrap.appendChild(el);
+                    var vx = (Math.random() - 0.5) * 6;
+                    var vy = -12 - Math.random() * 6;
+                    var rot = 0;
+                    var vr = (Math.random() - 0.5) * 10;
+                    var gravity = 0.4;
+                    var x = 0, y = 0;
+                    (function animate(el, vx, vy, rot, vr, x, y) {
+                        function step() {
+                            vy += gravity;
+                            x += vx;
+                            y += vy;
+                            rot += vr;
+                            el.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + rot + 'deg)';
+                            if (y > 400) {
+                                el.style.opacity = '0';
+                                setTimeout(function() { el.remove(); }, 50);
+                                return;
+                            }
+                            if (y > 200) el.style.opacity = Math.max(0, 1 - (y - 200) / 200);
+                            requestAnimationFrame(step);
+                        }
+                        step();
+                    })(el, vx, vy, rot, vr, x, y);
+                }
+            }
+        })();
+
+        // === Global floating candies ===
+        (function() {
+            var emojis = ['🍬','🍫','🍭','🧁','🍩','🍪','🍰','🍦','🍡','🎂','🍮','🍯'];
+            var container = document.getElementById('globalCandies');
+            var count = 4;
+            var items = [];
+            for (var i = 0; i < count; i++) {
+                var el = document.createElement('span');
+                el.className = 'global-candy';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                var size = 24 + Math.random() * 32;
+                el.style.fontSize = size + 'px';
+                el.style.left = Math.random() * 100 + '%';
+                el.style.top = Math.random() * 100 + '%';
+                el.style.opacity = 1;
+                container.appendChild(el);
+                items.push({
+                    el: el,
+                    x: parseFloat(el.style.left),
+                    y: parseFloat(el.style.top),
+                    vx: (Math.random() - 0.5) * 0.03,
+                    vy: (Math.random() - 0.5) * 0.02,
+                    rot: Math.random() * 360,
+                    vr: (Math.random() - 0.5) * 0.1,
+                    baseSize: size,
+                    drift: Math.random() * Math.PI * 2
+                });
+            }
+            function animate() {
+                var t = Date.now() * 0.001;
+                items.forEach(function(item) {
+                    item.x += item.vx;
+                    item.y += item.vy;
+                    item.rot += item.vr;
+                    item.drift += 0.005;
+                    var floatY = Math.sin(item.drift) * 8;
+                    var floatX = Math.cos(item.drift * 0.7) * 5;
+                    if (item.x < -5) item.x = 105;
+                    if (item.x > 105) item.x = -5;
+                    if (item.y < -5) item.y = 105;
+                    if (item.y > 105) item.y = -5;
+                    item.el.style.left = item.x + '%';
+                    item.el.style.top = item.y + '%';
+                    item.el.style.transform = 'translate(' + floatX + 'px,' + floatY + 'px) rotate(' + item.rot + 'deg)';
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // === Sticky nav shadow on scroll ===
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // === Hero logo blur on scroll ===
+        (function() {
+            const logo = document.querySelector('.hero-ellipse');
+            if (!logo) return;
+            const heroH = document.querySelector('.hero').offsetHeight;
+            function updateLogoBlur() {
+                const scrollY = window.scrollY;
+                const progress = Math.min(scrollY / heroH, 1);
+                const blur = progress * 20;
+                const opacity = 1 - progress * 0.5;
+                logo.style.filter = 'blur(' + blur + 'px)';
+                logo.style.opacity = opacity;
+            }
+            window.addEventListener('scroll', updateLogoBlur, { passive: true });
+            updateLogoBlur();
+        })();
+
+        // === Mobile menu toggle ===
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.getElementById('mobileOverlay').classList.toggle('active');
+            document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('active') ? 'hidden' : '';
+        }
+
+        // === WhatsApp form submission ===
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            let text = `*פנייה חדשה מהאתר - עולם הממתקים*%0A%0A`;
+            text += `*שם:* ${name}%0A`;
+            text += `*טלפון:* ${phone}%0A`;
+            if (email) text += `*אימייל:* ${email}%0A`;
+            text += `*נושא:* ${subject}%0A`;
+            if (message) text += `*הודעה:* ${message}%0A`;
+
+            window.open(`https://wa.me/9720509444870?text=${text}`, '_blank');
+        }
+
+        // === Smooth scroll for anchor links ===
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    const offset = 120;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+    <!-- ===== EYE TRACKING SCRIPT ===== -->
+    <script>
+    (function() {
+        const PUPIL_RANGE = 8;
+        const TRANSLATE_MULT = 5.8;
+        const EASE = 0.22;
+
+        const wraps = document.querySelectorAll('.character-wrap');
+        if (!wraps.length) return;
+
+        const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
+
+        // Per-wrap state
+        const states = [];
+        wraps.forEach(wrap => {
+            const irisGroups = wrap.querySelectorAll('.iris-group');
+            const eyes = wrap.querySelectorAll('.eye');
+            const rect = { current: wrap.getBoundingClientRect() };
+            states.push({
+                wrap,
+                irisGroups,
+                eyes,
+                rect,
+                current: { x: 0, y: 0 },
+                target: { x: 0, y: 0 }
+            });
+        });
+
+        // Recalc bounds on scroll/resize
+        function recalcBounds() {
+            states.forEach(s => {
+                s.rect.current = s.wrap.getBoundingClientRect();
+            });
+        }
+        window.addEventListener('scroll', recalcBounds, { passive: true });
+        window.addEventListener('resize', recalcBounds);
+
+        // Blinking
+        let isBlinking = false;
+        function blink() {
+            setTimeout(() => {
+                isBlinking = true;
+                states.forEach(s => {
+                    s.irisGroups.forEach(g => {
+                        g.style.transition = 'transform 0.1s ease-out';
+                        g.style.transformOrigin = 'center center';
+                        g.dataset.blinking = 'true';
+                    });
+                });
+                setTimeout(() => {
+                    isBlinking = false;
+                    states.forEach(s => {
+                        s.irisGroups.forEach(g => {
+                            delete g.dataset.blinking;
+                        });
+                    });
+                    blink();
+                }, 120 + Math.random() * 80);
+            }, 1500 + Math.random() * 3000);
+        }
+        blink();
+
+        // Mouse tracking
+        if (!isTouchDevice()) {
+            window.addEventListener('mousemove', function(e) {
+                states.forEach(s => {
+                    const r = s.rect.current;
+                    if (!r) return;
+                    const cx = r.left + r.width / 2;
+                    const cy = r.top + r.height / 2;
+                    const dx = e.clientX - cx;
+                    const dy = e.clientY - cy;
+                    const dist = Math.min(Math.sqrt(dx * dx + dy * dy) / (Math.max(window.innerWidth, window.innerHeight) / 4), 1);
+                    const angle = Math.atan2(dy, dx);
+                    s.target.x = PUPIL_RANGE * Math.cos(angle) * dist;
+                    s.target.y = PUPIL_RANGE * Math.sin(angle) * dist * (dy < 0 ? 2 : 1);
+                });
+            }, { passive: true });
+        } else {
+            // Touch fallback: random movement
+            setInterval(() => {
+                states.forEach(s => {
+                    if (Math.random() > 0.3) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const dist = 0.3 + Math.random() * 0.5;
+                        s.target.x = PUPIL_RANGE * Math.cos(angle) * dist;
+                        s.target.y = PUPIL_RANGE * Math.sin(angle) * dist;
+                    } else {
+                        s.target.x = 0;
+                        s.target.y = 0;
+                    }
+                });
+            }, 2000 + Math.random() * 2000);
+        }
+
+        // Animation loop
+        function animate() {
+            states.forEach(s => {
+                s.current.x += (s.target.x - s.current.x) * EASE;
+                s.current.y += (s.target.y - s.current.y) * EASE;
+                const tx = s.current.x * TRANSLATE_MULT;
+                const ty = s.current.y * TRANSLATE_MULT;
+                s.irisGroups.forEach(g => {
+                    const blink = g.dataset.blinking ? ' scaleY(0.1)' : '';
+                    g.style.transform = 'translate(' + tx + 'px, ' + ty + 'px)' + blink;
+                });
+            });
+            requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+    })();
+    </script>
+</body>
+</html>
