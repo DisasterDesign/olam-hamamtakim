@@ -204,6 +204,10 @@
             height: 55px;
             width: auto;
         }
+        .logo-c1-img {
+            height: 85px;
+            width: auto;
+        }
 
         .nav-links {
             display: flex;
@@ -1412,12 +1416,13 @@
         @media (max-width: 768px) {
             /* --- Nav --- */
             .top-bar { padding: 6px 16px; }
-            .top-bar-icons { gap: 8px; }
-            .top-bar-icon { width: 36px; height: 36px; font-size: 15px; }
+            .top-bar-icons { gap: 6px; }
+            .top-bar-icon { width: 32px; height: 32px; font-size: 14px; }
             .top-bar-icon-label { display: none; }
             .main-nav { padding: 8px 16px; top: 56px; }
             .top-bar-phone { display: none; }
             .nav-logo-img { height: 40px; }
+            .logo-c1-img { height: 40px; }
             .nav-links { display: none; }
             .nav-cta { display: none; }
             .mobile-toggle { display: flex; }
@@ -1558,6 +1563,10 @@
 
             .gallery-grid { grid-template-columns: 1fr; }
             .gallery-item:nth-child(1) { grid-column: span 1; }
+
+            .logo-c1-img { height: 32px; }
+            .nav-logo-img { height: 32px; }
+            .nav-logo { gap: 8px; }
         }
 
         /* Mobile nav overlay */
@@ -1678,7 +1687,7 @@
     <div class="top-bar">
         <div class="nav-logo">
             <img src="logo.png" alt="עולם הממתקים" class="nav-logo-img">
-            <img src="logo-c1.png" alt="פיצוחי ירושלים" style="height: 85px; width: auto;">
+            <img src="logo-c1.png" alt="פיצוחי ירושלים" class="logo-c1-img">
         </div>
         <div class="top-bar-icons">
             <div class="top-bar-icon-wrap">
