@@ -794,8 +794,8 @@
         }
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
         }
         .gallery-item {
             border-radius: var(--radius);
@@ -808,7 +808,6 @@
             transform: translateY(-8px);
             box-shadow: 0 16px 40px rgba(0,0,0,0.15);
         }
-        .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
         .gallery-img {
             width: 100%;
             height: 100%;
@@ -1412,7 +1411,6 @@
             .franchise-card, .commercial-card { grid-template-columns: 1fr; }
             .contact-grid { grid-template-columns: 1fr; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .gallery-item:nth-child(1) { grid-column: span 2; }
         }
 
         /* ===== MOBILE (≤768px) ===== */
@@ -1533,7 +1531,6 @@
 
             /* --- Gallery --- */
             .gallery-grid { grid-template-columns: 1fr 1fr; }
-            .gallery-item:nth-child(1) { grid-column: span 2; }
 
             /* --- Contact --- */
             .contact-form-wrap { padding: 24px; }
@@ -1566,7 +1563,6 @@
             }
 
             .gallery-grid { grid-template-columns: 1fr; }
-            .gallery-item:nth-child(1) { grid-column: span 1; }
 
             .logo-c1-img { height: 32px; }
             .nav-logo-img { height: 32px; }
