@@ -2028,24 +2028,29 @@
             <div class="contact-grid">
                 <div class="contact-form-wrap glass fade-right">
                     <h3>📩 השאירו פרטים</h3>
-                    <form id="contactForm" onsubmit="sendToWhatsApp(event)">
+                    <form id="contactForm" action="https://formsubmit.co/olamhamamtakim@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="פנייה חדשה מהאתר - עולם הממתקים">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_next" value="https://olam-hamamtakim.pages.dev/#contact">
+                        <input type="text" name="_honey" style="display:none">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="fullName">שם מלא *</label>
-                                <input type="text" id="fullName" name="fullName" required placeholder="הזינו את שמכם">
+                                <input type="text" id="fullName" name="שם מלא" required placeholder="הזינו את שמכם">
                             </div>
                             <div class="form-group">
                                 <label for="phone">טלפון *</label>
-                                <input type="tel" id="phone" name="phone" required placeholder="050-0000000" dir="ltr" style="text-align:right;">
+                                <input type="tel" id="phone" name="טלפון" required placeholder="050-0000000" dir="ltr" style="text-align:right;">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email">אימייל</label>
-                            <input type="email" id="email" name="email" placeholder="your@email.com" dir="ltr" style="text-align:right;">
+                            <input type="email" id="email" name="אימייל" placeholder="your@email.com" dir="ltr" style="text-align:right;">
                         </div>
                         <div class="form-group">
                             <label for="subject">נושא הפנייה *</label>
-                            <select id="subject" name="subject" required>
+                            <select id="subject" name="נושא" required>
                                 <option value="" disabled selected>בחרו נושא</option>
                                 <option value="זכיינות">זכיינות</option>
                                 <option value="שטח מסחרי">שטח מסחרי</option>
@@ -2054,11 +2059,11 @@
                         </div>
                         <div class="form-group">
                             <label for="message">תוכן ההודעה</label>
-                            <textarea id="message" name="message" placeholder="ספרו לנו במה נוכל לעזור..."></textarea>
+                            <textarea id="message" name="הודעה" placeholder="ספרו לנו במה נוכל לעזור..."></textarea>
                         </div>
                         <button type="submit" class="form-submit">
-                            <span>📲</span>
-                            שליחה דרך וואטסאפ
+                            <span>📩</span>
+                            שליחת פנייה
                         </button>
                     </form>
                 </div>
@@ -2518,23 +2523,7 @@
         }
 
         // === WhatsApp form submission ===
-        function sendToWhatsApp(e) {
-            e.preventDefault();
-            const name = document.getElementById('fullName').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-
-            let text = `*פנייה חדשה מהאתר - עולם הממתקים*%0A%0A`;
-            text += `*שם:* ${name}%0A`;
-            text += `*טלפון:* ${phone}%0A`;
-            if (email) text += `*אימייל:* ${email}%0A`;
-            text += `*נושא:* ${subject}%0A`;
-            if (message) text += `*הודעה:* ${message}%0A`;
-
-            window.open(`https://wa.me/9720509444870?text=${text}`, '_blank');
-        }
+        // Contact form handled by Formsubmit.co (sends to olamhamamtakim@gmail.com)
 
         // === Smooth scroll for anchor links ===
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
