@@ -37,7 +37,11 @@
             font-family: 'Heebo', sans-serif;
             direction: rtl;
             color: #2d2d2d;
-            background: #FFFFFF;
+            background: #fff;
+            background-image:
+                radial-gradient(ellipse at 10% 20%, rgba(255, 0, 9, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 50%, rgba(0, 107, 188, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(255, 0, 9, 0.04) 0%, transparent 50%);
             overflow-x: hidden;
             line-height: 1.7;
         }
@@ -211,25 +215,22 @@
             align-items: center;
         }
         .nav-links a {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 600;
             color: #006BBC;
-            transition: color 0.3s, transform 0.3s;
+            transition: all 0.3s;
             position: relative;
+            padding: 8px 18px;
+            border-radius: 25px;
+            background: rgba(0, 107, 188, 0.06);
+            border: 1px solid rgba(0, 107, 188, 0.12);
         }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            right: 0;
-            width: 0;
-            height: 3px;
+        .nav-links a:hover {
+            color: white;
             background: var(--gradient-1);
-            border-radius: 2px;
-            transition: width 0.3s;
+            border-color: transparent;
+            transform: translateY(-1px);
         }
-        .nav-links a:hover { color: var(--candy-pink); transform: translateY(-1px); }
-        .nav-links a:hover::after { width: 100%; }
 
         .nav-cta {
             display: flex;
@@ -333,7 +334,7 @@
             margin-bottom: 16px;
         }
         .hero-title {
-            font-size: 62px;
+            font-size: 38px;
             font-weight: 900;
             line-height: 1.15;
             margin-bottom: 8px;
@@ -343,13 +344,13 @@
             background-clip: text;
         }
         .hero-slogan {
-            font-size: 30px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--candy-purple);
             margin-bottom: 8px;
         }
         .hero-desc {
-            font-size: 17px;
+            font-size: 15px;
             color: #666;
             margin-bottom: 0;
             line-height: 1.8;
@@ -519,13 +520,18 @@
         /* ===== QUICK INFO BAR ===== */
         .quick-bar {
             position: absolute;
-            z-index: 12;
+            z-index: 14;
             right: 10px;
             top: 50%;
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
             gap: 16px;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 107, 188, 0.15);
+            padding: 16px;
         }
         .quick-item {
             display: flex;
@@ -535,23 +541,24 @@
             border-radius: var(--radius-sm);
             transition: transform 0.3s;
             cursor: default;
+            border: 1px solid rgba(0, 107, 188, 0.08);
         }
         .quick-item:hover { transform: translateY(-3px); }
         .quick-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
             color: white;
             flex-shrink: 0;
         }
         .quick-icon.pink { background: var(--gradient-1); }
         .quick-icon.green { background: linear-gradient(135deg, #006BBC, #006BBC); }
         .quick-icon.purple { background: var(--gradient-3); }
-        .quick-text strong { display: block; font-size: 14px; color: #333; }
+        .quick-text strong { display: block; font-size: 17px; color: #333; }
         .quick-text span { font-size: 12px; color: #888; }
 
         /* ===== SECTION STYLES ===== */
@@ -1395,7 +1402,8 @@
         /* ===== TABLET (≤1024px) ===== */
         @media (max-width: 1024px) {
             .character-wrap { width: 250px; margin: 0 -30px; }
-            .hero-title { font-size: 52px; }
+            .hero-title { font-size: 32px; }
+            .hero-slogan { font-size: 20px; }
             .about-grid { grid-template-columns: 1fr; }
             .franchise-card, .commercial-card { grid-template-columns: 1fr; }
             .contact-grid { grid-template-columns: 1fr; }
@@ -1485,9 +1493,9 @@
                 flex-shrink: 1;
                 margin: 0 -40px;
             }
-            .hero-title { font-size: 36px; }
-            .hero-slogan { font-size: 22px; }
-            .hero-desc { font-size: 15px; }
+            .hero-title { font-size: 28px; }
+            .hero-slogan { font-size: 18px; }
+            .hero-desc { font-size: 14px; }
             .hero-stats { flex-direction: column; gap: 12px; }
             .hero-btns { flex-direction: column; align-items: center; }
             .quick-bar { display: none; }
@@ -1672,6 +1680,7 @@
     <!-- ===== TOP BAR ===== -->
     <div class="top-bar">
         <div class="nav-logo">
+            <img src="logo-c1.png" alt="פיצוחי ירושלים" style="height: 40px; width: auto;">
             <img src="logo.png" alt="עולם הממתקים" class="nav-logo-img">
         </div>
         <div class="top-bar-icons">
@@ -1978,7 +1987,7 @@
                     </a>
                 </div>
                 <div class="franchise-visual">
-                    <img src="store-givatayim.png" alt="דוכן זכיינות גבעתיים" class="franchise-illustration" style="object-fit:cover;">
+                    <img src="photo-c1.jpeg" alt="סניף עולם הממתקים בגלילות" style="width: 100%; max-width: 320px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0, 107, 188, 0.3); object-fit: cover;">
                 </div>
             </div>
         </div>
@@ -1995,7 +2004,30 @@
 
             <div class="commercial-card glass fade-up">
                 <div class="commercial-visual">
-                    <img src="store-narkisim1.jpeg" alt="סניף נרקיסים" class="commercial-illustration" style="object-fit:cover;">
+                    <div style="width: 280px; height: 340px; position: relative; background: linear-gradient(135deg, rgba(0,107,188,0.08), rgba(0,107,188,0.03)); border-radius: 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 50px rgba(0, 107, 188, 0.15); margin: 0 auto;">
+                        <svg viewBox="0 0 120 300" style="width: 100px; height: auto;">
+                            <style>
+                                @keyframes mapPulse { 0%,100% { r: 4; opacity: 0.9; } 50% { r: 7; opacity: 0.5; } }
+                                .map-pin { animation: mapPulse 2s ease-in-out infinite; }
+                            </style>
+                            <path d="M60 8 C45 8, 25 20, 20 45 C15 70, 18 95, 22 115 C26 135, 30 150, 35 170 C38 182, 42 195, 48 210 C52 220, 55 230, 58 245 C59 250, 60 260, 60 270 C60 275, 62 278, 65 270 C68 260, 70 248, 72 238 C75 225, 78 215, 80 205 C83 192, 85 180, 88 165 C92 145, 95 130, 97 115 C100 95, 102 80, 98 60 C95 42, 85 25, 75 15 C70 10, 65 8, 60 8Z" fill="none" stroke="#006BBC" stroke-width="1.5" opacity="0.4"/>
+                            <path d="M60 8 C45 8, 25 20, 20 45 C15 70, 18 95, 22 115 C26 135, 30 150, 35 170 C38 182, 42 195, 48 210 C52 220, 55 230, 58 245 C59 250, 60 260, 60 270 C60 275, 62 278, 65 270 C68 260, 70 248, 72 238 C75 225, 78 215, 80 205 C83 192, 85 180, 88 165 C92 145, 95 130, 97 115 C100 95, 102 80, 98 60 C95 42, 85 25, 75 15 C70 10, 65 8, 60 8Z" fill="rgba(0,107,188,0.06)"/>
+                            <circle cx="55" cy="38" r="4" fill="#FF0009" class="map-pin"/>
+                            <circle cx="45" cy="65" r="4" fill="#006BBC" class="map-pin" style="animation-delay:0.3s"/>
+                            <circle cx="62" cy="55" r="4" fill="#FF0009" class="map-pin" style="animation-delay:0.6s"/>
+                            <circle cx="50" cy="90" r="4" fill="#006BBC" class="map-pin" style="animation-delay:0.9s"/>
+                            <circle cx="38" cy="110" r="4" fill="#FF0009" class="map-pin" style="animation-delay:1.2s"/>
+                            <circle cx="55" cy="130" r="4" fill="#006BBC" class="map-pin" style="animation-delay:0.4s"/>
+                            <circle cx="45" cy="155" r="4" fill="#FF0009" class="map-pin" style="animation-delay:0.7s"/>
+                            <circle cx="52" cy="180" r="4" fill="#006BBC" class="map-pin" style="animation-delay:1.0s"/>
+                            <circle cx="58" cy="210" r="4" fill="#FF0009" class="map-pin" style="animation-delay:0.5s"/>
+                            <circle cx="62" cy="245" r="4" fill="#006BBC" class="map-pin" style="animation-delay:0.8s"/>
+                        </svg>
+                        <div style="position: absolute; bottom: 20px; text-align: center; font-size: 14px; font-weight: 700; color: #006BBC;">
+                            פריסה ארצית<br>
+                            <span style="font-size: 28px; font-weight: 900;">80+</span> סניפים
+                        </div>
+                    </div>
                 </div>
                 <div class="commercial-info">
                     <h3>יש לכם נכס מסחרי? נשמח לשמוע</h3>
@@ -2030,6 +2062,9 @@
 
             <div class="gallery-grid fade-up">
                 <div class="gallery-item stagger-item">
+                    <img src="photo-c1.jpeg" alt="סניף גלילות" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
                     <img src="store-grand-haifa.jpg" alt="סניף גרנד חיפה" class="gallery-img">
                 </div>
                 <div class="gallery-item stagger-item">
@@ -2043,6 +2078,27 @@
                 </div>
                 <div class="gallery-item stagger-item">
                     <img src="store-ir-yamim.jpg" alt="דוכן עיר ימים" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-belinson.jpeg" alt="סניף בלינסון" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-grand2.jpeg" alt="סניף גרנד" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-kfar-ganim2.jpg" alt="סניף כפר גנים 2" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-kiryat-yovel1.jpg" alt="סניף קרית יובל" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-ir-hayayin.jpg" alt="סניף עיר היין" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-narkisim2.jpeg" alt="סניף נרקיסים" class="gallery-img">
+                </div>
+                <div class="gallery-item stagger-item">
+                    <img src="store-ofer-rehovot.jpg" alt="סניף עופר רחובות" class="gallery-img">
                 </div>
             </div>
         </div>
