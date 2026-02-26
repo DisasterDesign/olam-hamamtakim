@@ -1502,7 +1502,34 @@
             .hero-desc { font-size: 14px; }
             .hero-stats { flex-direction: column; gap: 12px; }
             .hero-btns { flex-direction: column; align-items: center; }
-            .quick-bar { display: none; }
+            .quick-bar {
+                display: flex;
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                flex-direction: column;
+                gap: 8px;
+                padding: 12px;
+                margin: 20px 0 0;
+                width: 100%;
+                z-index: 14;
+                background: rgba(255,255,255,0.9);
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            }
+            .quick-item {
+                padding: 8px 12px;
+                gap: 10px;
+            }
+            .quick-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                font-size: 18px;
+            }
+            .quick-text strong { font-size: 14px; }
+            .quick-text span { font-size: 11px; }
             .candy-float { display: none; }
             .char-glow-blue, .char-glow-red { display: none; }
             .hero-character { filter: none; }
