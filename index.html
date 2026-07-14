@@ -2058,29 +2058,25 @@
             <div class="contact-grid">
                 <div class="contact-form-wrap glass fade-right">
                     <h3>📩 השאירו פרטים</h3>
-                    <form id="contactForm" action="https://formsubmit.co/9e7e677645b7ec55aac23a61753b6b82" method="POST">
-                        <input type="hidden" name="_subject" value="פנייה חדשה מהאתר - עולם הממתקים">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_next" value="https://olamhamamtakim.co.il/#contact">
-                        <input type="text" name="_honey" style="display:none">
+                    <form id="contactForm" action="/api/contact" method="POST" novalidate>
+                        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="fullName">שם מלא *</label>
-                                <input type="text" id="fullName" name="שם מלא" required placeholder="הזינו את שמכם">
+                                <input type="text" id="fullName" name="name" required placeholder="הזינו את שמכם">
                             </div>
                             <div class="form-group">
                                 <label for="phone">טלפון *</label>
-                                <input type="tel" id="phone" name="טלפון" required placeholder="050-0000000" dir="ltr" style="text-align:right;">
+                                <input type="tel" id="phone" name="phone" required placeholder="050-0000000" dir="ltr" style="text-align:right;">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email">אימייל</label>
-                            <input type="email" id="email" name="אימייל" placeholder="your@email.com" dir="ltr" style="text-align:right;">
+                            <input type="email" id="email" name="email" placeholder="your@email.com" dir="ltr" style="text-align:right;">
                         </div>
                         <div class="form-group">
                             <label for="subject">נושא הפנייה *</label>
-                            <select id="subject" name="נושא" required>
+                            <select id="subject" name="subject" required>
                                 <option value="" disabled selected>בחרו נושא</option>
                                 <option value="זכיינות">זכיינות</option>
                                 <option value="שטח מסחרי">שטח מסחרי</option>
@@ -2089,13 +2085,21 @@
                         </div>
                         <div class="form-group">
                             <label for="message">תוכן ההודעה</label>
-                            <textarea id="message" name="הודעה" placeholder="ספרו לנו במה נוכל לעזור..."></textarea>
+                            <textarea id="message" name="message" placeholder="ספרו לנו במה נוכל לעזור..."></textarea>
                         </div>
                         <button type="submit" class="form-submit">
                             <span>📩</span>
                             שליחת פנייה
                         </button>
                     </form>
+                    <div id="contactSuccess" style="display:none; padding:24px; text-align:center; border-radius:12px; background:rgba(76,175,80,0.12); border:1px solid rgba(76,175,80,0.4);">
+                        <div style="font-size:2rem;">✅</div>
+                        <strong>הפנייה נשלחה בהצלחה!</strong>
+                        <p style="margin:8px 0 0;">נחזור אליכם בהקדם.</p>
+                    </div>
+                    <div id="contactError" style="display:none; margin-top:16px; padding:16px; text-align:center; border-radius:12px; background:rgba(244,67,54,0.12); border:1px solid rgba(244,67,54,0.4);">
+                        שליחת הפנייה נכשלה. אפשר להתקשר אלינו ישירות: <a href="tel:0509444870" style="font-weight:bold;">050-9444870</a>
+                    </div>
                 </div>
 
                 <div class="contact-info-wrap fade-left">
@@ -2552,8 +2556,56 @@
             document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('active') ? 'hidden' : '';
         }
 
-        // === WhatsApp form submission ===
-        // Contact form handled by Formsubmit.co (sends to olamhamamtakim@gmail.com)
+        // === Contact form submission (POST /api/contact → Resend) ===
+        (function() {
+            const contactForm = document.getElementById('contactForm');
+            if (!contactForm) return;
+            const contactSuccess = document.getElementById('contactSuccess');
+            const contactError = document.getElementById('contactError');
+            const submitBtn = contactForm.querySelector('[type="submit"]');
+            const submitHtml = submitBtn.innerHTML;
+
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                let valid = true;
+                contactForm.querySelectorAll('[required]').forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = '#f44336';
+                        valid = false;
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+                if (!valid) return;
+
+                contactError.style.display = 'none';
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'שולח...';
+
+                try {
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: new FormData(contactForm),
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        contactForm.reset();
+                        contactForm.style.display = 'none';
+                        contactSuccess.style.display = 'block';
+                    } else {
+                        // Real failure — never fake success, or the lead is lost silently.
+                        contactError.style.display = 'block';
+                    }
+                } catch {
+                    contactError.style.display = 'block';
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = submitHtml;
+                }
+            });
+        })();
 
         // === Smooth scroll for anchor links ===
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
